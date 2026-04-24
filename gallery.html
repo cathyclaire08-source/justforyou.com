@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gallery</title>
+
+<style>
+body {
+    background: #081526;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+/* OUTER FRAME (this fixes spacing around everything) */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 30px; /* equal space on all sides */
+    margin-top: 20px;
+}
+
+/* SIDE COLUMNS */
+.side {
+    display: grid;
+    grid-template-columns: repeat(2, 160px);
+    row-gap: 25px; /* vertical spacing */
+    column-gap: 15px;
+}
+
+/* LEFT stagger (second column lower) */
+.left img:nth-child(2),
+.left img:nth-child(4) {
+    margin-top: 40px;
+}
+
+/* RIGHT stagger (first column lower) */
+.right img:nth-child(1),
+.right img:nth-child(3) {
+    margin-top: 40px;
+}
+
+/* CENTER COLUMN */
+.center {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* SIDE IMAGES */
+.side img {
+    width: 160px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* CENTER MEDIA */
+.center img,
+.center video {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* HOVER */
+img:hover,
+video:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+/* LINK */
+a {
+    color: #66d9ff;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>📷 Your Memories</h1>
+
+<div class="wrapper">
+
+    <!-- LEFT -->
+    <div class="side left">
+        <img src="img1.jfif">
+        <img src="img2.jfif">
+        <img src="img3.jfif">
+        <img src="img4.jfif">
+    </div>
+
+    <!-- CENTER -->
+    <div class="center">
+        <video controls>
+            <source src="vdio1.mp4" type="video/mp4">
+        </video>
+
+        <img src="img5.jfif">
+
+        <video controls>
+            <source src="vdio2.mp4" type="video/mp4">
+        </video>
+
+        <img src="img6.jfif">
+    </div>
+
+    <!-- RIGHT -->
+    <div class="side right">
+        <img src="img7.jfif">
+        <img src="img8.jfif">
+        <img src="img9.jfif">
+        <img src="img10.jfif">
+    </div>
+
+</div>
+
+<br>
+<a href="index.html">⬅ Back</a>
+
+</body>
+</html>

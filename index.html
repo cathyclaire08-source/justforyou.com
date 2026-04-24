@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #081526, #020d1f);
+    color: white;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+/* SCREEN */
+.screen {
+    width: 750px;
+    max-width: 95%;
+    background: #0f2a44;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+/* BIRTHDAY */
+.birthday {
+    text-align: center;
+}
+
+.birthday h2 {
+    color: #66d9ff;
+font-size: 50px;   
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.birthday h3 {
+    margin-top: 0;
+    font-size: 30px;
+    color: #aee9ff;
+    letter-spacing: 1px;
+}
+
+.cake {
+    font-size: 120px;
+    cursor: pointer;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% { transform: translateY(-12px); }
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.header h1 {
+    color: #66d9ff;
+}
+
+/* BIG CLICKABLE BOXES */
+.icons {
+    display: flex;
+    margin-top: 18px;
+}
+
+.icon-box {
+    flex: 1;
+    width: 220px;
+    height: 180px;
+    background: #163b5c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+/* NO SPACE BETWEEN */
+.icon-box:not(:last-child) {
+    border-right: 2px solid #0f2a44;
+}
+
+.icon-box:hover {
+    background: #1f5c8c;
+    transform: scale(1.03);
+}
+
+/* POPUP */
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: #0f2a44;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: #1f5c8c;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* CONFETTI CANVAS */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="screen">
+
+        <!-- 🎂 BIRTHDAY -->
+        <div class="birthday">
+            <h2>HAPPY BIRTHDAY</h2>
+            <h3>Kuya Rahi</h3>
+            <div class="cake" onclick="openPopup()">🎂</div>
+        </div>
+
+        <!-- 💙 SECOND -->
+        <div class="header">
+            <h1>💙 THESE ARE FOR YOU 💙</h1>
+        </div>
+
+        <!-- CLICKABLE BOXES -->
+        <div class="icons">
+            <a href="music.html" class="icon-box">🎵</a>
+            <a href="gallery.html" class="icon-box">📷</a>
+            <a href="message.html" class="icon-box">💌</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <h2>🎉 Surprise! 🎉</h2>
+        <p>Happy Birthday! 💙</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+<!-- CONFETTI -->
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("confetti-canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+function createConfetti() {
+    for (let i = 0; i < 150; i++) {
+        confetti.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: Math.random() * 6 + 4,
+            speedX: (Math.random() - 0.5) * 10,
+            speedY: (Math.random() - 0.5) * 10,
+            color: `hsl(${Math.random() * 360}, 100%, 60%)`
+        });
+    }
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confetti.forEach((c, index) => {
+        ctx.fillStyle = c.color;
+        ctx.fillRect(c.x, c.y, c.size, c.size);
+
+        c.x += c.speedX;
+        c.y += c.speedY;
+        c.speedY += 0.2;
+
+        if (c.y > canvas.height) {
+            confetti.splice(index, 1);
+        }
+    });
+
+    requestAnimationFrame(drawConfetti);
+}
+
+/* CLICK CAKE */
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+
+    createConfetti();   // 🎉 trigger confetti
+    drawConfetti();
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
